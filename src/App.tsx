@@ -276,23 +276,6 @@ function Reveal({
   );
 }
 
-function SoftBlueBackdrop() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <motion.div
-        animate={{ x: [0, 42, 0], y: [0, -28, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-24 top-10 h-[25rem] w-[25rem] rounded-full bg-brand-blue/18 blur-3xl"
-      />
-      <motion.div
-        animate={{ x: [0, -48, 0], y: [0, 36, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-28 bottom-0 h-[30rem] w-[30rem] rounded-full bg-brand-teal/16 blur-3xl"
-      />
-    </div>
-  );
-}
-
 function Counter({ to, format }: { to: number; format?: (n: number) => string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [val, setVal] = useState(0);
@@ -507,9 +490,9 @@ function Hero({ onCta }: { onCta: () => void }) {
         >
           <source src="assets/hero.mp4" type="video/mp4" />
         </video>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-ink/85 via-brand-ink/35 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-brand-ink/40" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-brand-blue/45 via-transparent to-brand-teal/25 mix-blend-multiply" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-ink/[0.64] via-brand-ink/[0.26] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-ink/[0.68] via-transparent to-brand-ink/[0.30]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-brand-blue/[0.34] via-transparent to-brand-teal/[0.19] mix-blend-multiply" />
       </motion.div>
 
         <motion.div
@@ -620,8 +603,8 @@ function Projects({ onOpen }: { onOpen: (name: string) => void }) {
             <img src={cur.img} alt={cur.name} className="h-full w-full object-cover" />
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-brand-ink/55 to-brand-ink/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/[0.75] via-brand-ink/[0.41] to-brand-ink/[0.23]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/[0.60] to-transparent" />
 
         <div className="absolute left-6 top-[14vh] z-10 md:left-10">
           <Eyebrow light>Портфель проектов</Eyebrow>
@@ -945,10 +928,9 @@ function InteractiveChart() {
 
 function Metrics() {
   return (
-    <section className="relative overflow-hidden bg-sky-50/60 py-24 md:py-28">
-      <SoftBlueBackdrop />
-      <div className="relative mx-auto max-w-[1360px] px-6 md:px-10">
-        <div className="grid items-center gap-10 rounded-3xl border border-white/70 bg-white/78 p-7 shadow-glow backdrop-blur-xl md:grid-cols-[0.85fr_1.15fr] md:p-12">
+    <section className="bg-gradient-to-b from-white to-sky-50/50 py-24 md:py-28">
+      <div className="mx-auto max-w-[1360px] px-6 md:px-10">
+        <div className="grid items-center gap-10 rounded-3xl border border-brand-blue/10 bg-white p-7 shadow-glow md:grid-cols-[0.85fr_1.15fr] md:p-12">
           <div>
             <Eyebrow>Динамика рынка</Eyebrow>
             <h3 className="mt-5 font-display text-[clamp(26px,3vw,42px)] font-extrabold leading-tight tracking-tight text-foreground">
@@ -1036,8 +1018,7 @@ function DirectorSection() {
    ============================================================ */
 function Team() {
   return (
-    <section id="team" className="relative overflow-hidden bg-sky-50/55 py-24 md:py-32">
-      <SoftBlueBackdrop />
+    <section id="team" className="relative bg-white py-24 md:py-32">
       <div className="relative mx-auto max-w-[1360px] px-6 md:px-10">
         <div className="mb-12 max-w-2xl">
           <Reveal><Eyebrow>Команда</Eyebrow></Reveal>
@@ -1611,29 +1592,28 @@ function DrawnLinesBackdrop() {
 
 function DeveloperIntroPremium() {
   return (
-    <section id="developer" className="relative isolate flex min-h-[90vh] flex-col justify-center overflow-hidden bg-[#201b18] py-24 text-white md:py-28">
-      {/* Тёплый закатный рендер из исходных материалов САНТЕРРЫ. */}
+    <section id="developer" className="relative isolate flex min-h-[90vh] flex-col justify-center overflow-hidden bg-brand-ink py-24 text-white md:py-28">
+      {/* красивый рендер на фоне (g2 — не повторяется в других секциях) */}
       <motion.img
-        src="assets/developer-warm.jpg"
+        src="assets/gallery/g2.jpg"
         alt=""
         aria-hidden
         initial={{ scale: 1.12 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 2, ease: EASE }}
-        className="absolute inset-0 h-full w-full object-cover object-[62%_center] md:object-center"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#171513]/95 via-[#201b18]/48 to-[#4a3527]/10" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#171513]/95 via-[#241b16]/55 to-transparent" />
-      <div className="pointer-events-none absolute -right-32 top-0 h-[34rem] w-[34rem] rounded-full bg-brand-blue/24 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-ink/[0.53] via-brand-ink/[0.30] to-brand-ink/[0.30]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-ink/[0.69] via-brand-ink/[0.26] to-transparent" />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-10">
         <div className="max-w-3xl">
-          <Reveal><Eyebrow light className="text-sky-200">О девелопере</Eyebrow></Reveal>
+          <Reveal><Eyebrow light>О девелопере</Eyebrow></Reveal>
           <Reveal delay={0.06}>
             <h2 className="mt-5 font-display text-[clamp(38px,6.6vw,96px)] font-extrabold uppercase leading-[0.86] tracking-tight text-white drop-shadow-[0_6px_36px_rgba(0,0,0,0.55)]">
               Девелопер будущего{" "}
-              <span className="text-white">для Крыма</span>
+              <span className="text-sky-300">для Крыма</span>
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
@@ -1646,9 +1626,9 @@ function DeveloperIntroPremium() {
 
         {/* цифры: фиксированный безопасный размер (макс 58px) — не наезжают на любой ширине */}
         <Reveal delay={0.2}>
-          <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.85)] backdrop-blur-md md:mt-16 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-9 border-t border-white/15 pt-9 md:mt-16 md:gap-x-10 lg:grid-cols-4">
             {DEV_STATS.map((s) => (
-              <div key={s.l} className="min-w-0 bg-[#191512]/55 p-5 md:p-7">
+              <div key={s.l} className="min-w-0">
                 <div className="flex items-baseline whitespace-nowrap font-num font-extrabold leading-none text-white">
                   <span className="text-[clamp(30px,4.2vw,68px)] tabular-nums">
                     <Counter to={s.to} format={(n) => ru(n)} />
@@ -1669,57 +1649,52 @@ function DeveloperIntroPremium() {
 
 /* реальные награды СКАЙГРУПП (бейджи в public/assets/awards) */
 const AWARD_BADGES = [
-  { img: "assets/awards/urban-winner-2025.png", title: "Победитель премии URBAN", year: "2025", layout: "md:col-span-3 md:row-span-2" },
-  { img: "assets/awards/urban-winner-2024.png", title: "Победитель премии URBAN", year: "2024", layout: "md:col-span-3" },
-  { img: "assets/awards/urban-finalist-2024.png", title: "Финалист премии URBAN", year: "2024", layout: "md:col-span-2" },
-  { img: "assets/awards/records-winner.png", title: "Рекорды рынка недвижимости", year: "Победитель", layout: "md:col-span-2" },
-  { img: "assets/awards/diploma-ptica.png", title: "Crimea Urban Awards — ПТИЦА", year: "Лучший комплекс", layout: "md:col-span-2" },
+  { img: "assets/awards/urban-winner-2025.png", title: "Победитель премии URBAN", year: "2025" },
+  { img: "assets/awards/urban-winner-2024.png", title: "Победитель премии URBAN", year: "2024" },
+  { img: "assets/awards/urban-finalist-2024.png", title: "Финалист премии URBAN", year: "2024" },
+  { img: "assets/awards/records-winner.png", title: "Рекорды рынка недвижимости", year: "Победитель" },
+  { img: "assets/awards/diploma-ptica.png", title: "Crimea Urban Awards — ПТИЦА", year: "Лучший комплекс" },
 ];
 
 function OurAwards() {
   return (
-    <section id="awards" className="relative overflow-hidden bg-sky-50/60 py-20 md:py-28">
-      <SoftBlueBackdrop />
+    <section id="awards" className="relative isolate overflow-hidden bg-brand-ink py-16 text-white md:py-20">
+      {/* рендер-фон (g1 — синий час, тёмный; не повторяется в других секциях) */}
+      <img src="assets/gallery/g1.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-ink via-brand-ink/80 to-brand-ink/70" />
+
       <div className="relative mx-auto max-w-[1320px] px-6 md:px-10">
-        <div className="mb-10 grid gap-5 md:grid-cols-[1fr_0.72fr] md:items-end">
+        {/* шапка — компактная */}
+        <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Reveal><Eyebrow>Признание отрасли</Eyebrow></Reveal>
+            <Reveal><Eyebrow light>Признание отрасли</Eyebrow></Reveal>
             <Reveal delay={0.06}>
-              <h2 className="mt-4 font-display text-[clamp(34px,5.4vw,72px)] font-extrabold uppercase leading-[0.9] tracking-tight text-foreground">
-                Наши <span className="text-brand-blue">награды</span>
+              <h2 className="mt-3 font-display text-[clamp(30px,4.6vw,56px)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+                Наши <span className="text-sky-300">награды</span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <p className="max-w-lg text-[15px] font-medium leading-relaxed text-muted-foreground md:justify-self-end">
+            <p className="max-w-md text-[14px] font-medium leading-relaxed text-white/65">
               Победители и финалисты ведущих отраслевых премий — URBAN Awards,
               Рекорды рынка недвижимости, Crimea Urban Awards.
             </p>
           </Reveal>
         </div>
 
-        <div className="grid auto-rows-[190px] grid-cols-1 gap-3 md:grid-cols-6 md:auto-rows-[180px]">
+        {/* бейджи в один ряд — белые карточки на тёмном рендере */}
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:gap-4 lg:grid-cols-5">
           {AWARD_BADGES.map((a, i) => (
-            <Reveal key={a.title + a.year} delay={0.06 + i * 0.05} className={a.layout}>
-              <article className={cn(
-                "group relative flex h-full overflow-hidden rounded-[28px] border border-white/70 bg-white/82 shadow-[0_24px_70px_-45px_rgba(15,76,129,0.55)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1",
-                i === 0 ? "items-end bg-brand-blue p-6 text-white md:p-8" : "items-center gap-5 p-5 md:p-6"
-              )}>
-                <span className={cn(
-                  "absolute right-4 top-3 font-num text-5xl font-extrabold",
-                  i === 0 ? "text-white/10" : "text-brand-blue/[0.06]"
-                )}>0{i + 1}</span>
-                <div className={cn(
-                  "relative flex shrink-0 items-center justify-center overflow-hidden rounded-2xl",
-                  i === 0 ? "absolute inset-x-6 top-6 h-[58%] bg-brand-ink p-5 md:inset-x-8 md:top-8" : "h-24 w-24"
-                )}>
-                  <img src={a.img} alt={a.title} className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105" />
+            <Reveal key={a.title + a.year} delay={0.06 + (i % 5) * 0.05}>
+              <div className="group flex h-full flex-col items-center gap-3 rounded-2xl bg-white p-4 text-center shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:-translate-y-1 md:p-5">
+                <div className="flex h-[88px] items-center justify-center md:h-[104px]">
+                  <img src={a.img} alt={a.title} loading="lazy" className="max-h-full w-auto max-w-[85%] object-contain transition-transform duration-500 group-hover:scale-105" />
                 </div>
-                <div className={cn("relative", i === 0 && "max-w-sm")}>
-                  <p className={cn("text-[10px] font-bold uppercase tracking-[0.18em]", i === 0 ? "text-sky-200" : "text-brand-blue")}>{a.year}</p>
-                  <h3 className={cn("mt-1.5 font-display font-extrabold uppercase leading-tight tracking-tight", i === 0 ? "text-xl text-white md:text-2xl" : "text-[13px] text-foreground")}>{a.title}</h3>
+                <div>
+                  <h3 className="font-display text-[12.5px] font-extrabold uppercase leading-tight tracking-tight text-foreground">{a.title}</h3>
+                  <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-brand-blue">{a.year}</p>
                 </div>
-              </article>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -1736,14 +1711,6 @@ const GALLERY_IMAGES = [
   { src: "assets/gallery/g4.jpg", cap: "САНТЕРРА · приватные бассейны" },
   { src: "assets/gallery/g8.jpg", cap: "МЕДДИРТ · вид с высоты" },
   { src: "assets/gallery/g7.jpg", cap: "ОЛИМПИЯ · городской квартал" },
-  { src: "assets/gallery/g9.jpg", cap: "САНТЕРРА · вечерний вид у моря" },
-  { src: "assets/gallery/g10.jpg", cap: "САНТЕРРА · лаунж и ресторан" },
-  { src: "assets/gallery/g11.jpg", cap: "САНТЕРРА · бассейн у башен" },
-  { src: "assets/gallery/g12.jpg", cap: "САНТЕРРА · панорама с моря" },
-  { src: "assets/gallery/g14.jpg", cap: "МЕДДИРТ · вилла на первой линии" },
-  { src: "assets/gallery/g15.jpg", cap: "ОЛИМПИЯ · архитектурный ансамбль" },
-  { src: "assets/gallery/g16.jpg", cap: "ОЛИМПИЯ · улица внутри квартала" },
-  { src: "assets/gallery/g17.jpg", cap: "ОЛИМПИЯ · парадный фасад" },
 ];
 
 const gallerySlide: Variants = {
@@ -1820,7 +1787,7 @@ function GalleryFullscreen() {
         </button>
 
         {/* низ: подпись, счётчик, мобильные кнопки */}
-        <div className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-4 p-6 md:bottom-20 md:p-10">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-4 p-6 md:p-10">
           <div>
             <p className="font-display text-[clamp(18px,2.4vw,30px)] font-extrabold uppercase tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)]">
               {cur.cap}
@@ -1845,25 +1812,23 @@ function GalleryFullscreen() {
             <span key={i} className={cn("h-1 rounded-full transition-all", i === idx ? "w-6 bg-white" : "w-1.5 bg-white/40")} />
           ))}
         </div>
+      </div>
 
-        {/* Миниатюры находятся прямо внутри кадра и не создают горизонтальную прокрутку. */}
-        <div className="absolute inset-x-0 bottom-5 z-30 mx-auto hidden w-[calc(100%-5rem)] max-w-[1180px] grid-cols-[repeat(13,minmax(0,1fr))] gap-2 rounded-[24px] border border-white/15 bg-brand-ink/35 p-2.5 backdrop-blur-xl md:grid">
-          {GALLERY_IMAGES.map((g, i) => (
-            <button
-              key={g.src}
-              onClick={() => jump(i)}
-              aria-label={g.cap}
-              className={cn(
-                "relative aspect-[16/9] min-w-0 overflow-hidden rounded-xl border transition-all duration-300",
-                i === idx
-                  ? "border-sky-200 opacity-100 ring-2 ring-sky-200/70"
-                  : "border-white/10 opacity-55 hover:opacity-100"
-              )}
-            >
-              <img src={g.src} alt="" className="h-full w-full object-cover" />
-            </button>
-          ))}
-        </div>
+      {/* миниатюры-переключатели (десктоп) */}
+      <div className="mx-auto hidden max-w-[1500px] gap-2.5 px-6 py-5 md:flex md:px-10">
+        {GALLERY_IMAGES.map((g, i) => (
+          <button
+            key={g.src}
+            onClick={() => jump(i)}
+            aria-label={g.cap}
+            className={cn(
+              "relative h-14 flex-1 overflow-hidden rounded-lg transition-all duration-300",
+              i === idx ? "ring-2 ring-brand-blue ring-offset-2 ring-offset-brand-ink" : "opacity-50 hover:opacity-100"
+            )}
+          >
+            <img src={g.src} alt="" className="h-full w-full object-cover" />
+          </button>
+        ))}
       </div>
     </section>
   );
@@ -1892,10 +1857,10 @@ function DirectorSectionPremium() {
           {/* имя крупно по низу */}
           <div className="absolute inset-x-0 bottom-0 p-7 md:p-10">
             <Reveal>
-              <p className="font-display text-[clamp(30px,4vw,54px)] font-extrabold uppercase leading-[1.06] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+              <p className="font-display text-[clamp(30px,4.4vw,58px)] font-extrabold uppercase leading-[0.95] tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
                 Алексей<br />Шацких
               </p>
-              <p className="mt-4 max-w-sm text-[11px] font-bold uppercase leading-relaxed tracking-[0.18em] text-sky-200 md:text-[12px]">Вице-президент группы компаний</p>
+              <p className="mt-3 text-[12px] font-bold uppercase tracking-[0.22em] text-sky-200">Вице-президент группы компаний</p>
             </Reveal>
           </div>
         </div>
@@ -1906,7 +1871,7 @@ function DirectorSectionPremium() {
           <div className="relative max-w-xl">
             <Reveal><Eyebrow>Слово руководителя</Eyebrow></Reveal>
             <Reveal delay={0.08}>
-              <blockquote className="mt-7 font-display text-[clamp(27px,3.3vw,50px)] font-extrabold leading-[1.16] tracking-tight text-foreground">
+              <blockquote className="mt-7 font-display text-[clamp(27px,3.6vw,54px)] font-extrabold leading-[1.1] tracking-tight text-foreground">
                 Мы создаём пространства, которые становятся
                 <span className="text-brand-blue"> точками притяжения для миллионов</span>.
               </blockquote>
@@ -1918,14 +1883,14 @@ function DirectorSectionPremium() {
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="mt-12 grid grid-cols-1 gap-3 border-t border-brand-blue/12 pt-8 sm:grid-cols-3">
+              <div className="mt-12 grid grid-cols-3 gap-5 border-t border-brand-blue/12 pt-10">
                 {[["14", "", "масштабных проектов"], ["397 000", "+ м²", "введено в эксплуатацию"], ["295", "+ га", "земельный банк"]].map(([n, suf, l]) => (
-                  <div key={l} className="min-w-0 rounded-[24px] border border-brand-blue/15 bg-white/25 p-5 shadow-[0_18px_45px_-38px_rgba(15,76,129,0.6)] backdrop-blur-md">
-                    <p className="flex min-w-0 flex-wrap items-baseline gap-x-1 font-num font-extrabold leading-none text-brand-blue">
-                      <span className="text-[clamp(28px,2.8vw,44px)] tabular-nums">{n}</span>
-                      <span className="text-[clamp(12px,1.05vw,16px)] text-brand-teal">{suf}</span>
+                  <div key={l}>
+                    <p className="flex items-baseline whitespace-nowrap font-num font-extrabold leading-none text-brand-blue">
+                      <span className="text-[clamp(24px,3vw,46px)] tabular-nums">{n}</span>
+                      <span className="text-[clamp(12px,1.2vw,18px)] text-brand-teal">{suf}</span>
                     </p>
-                    <p className="mt-3 text-[10px] font-bold uppercase leading-snug tracking-[0.1em] text-muted-foreground">{l}</p>
+                    <p className="mt-2.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground">{l}</p>
                   </div>
                 ))}
               </div>
