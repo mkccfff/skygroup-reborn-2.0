@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 213 31% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 31% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 31% 9%;
+    --primary: 208 79% 28%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 205 40% 96%;
+    --secondary-foreground: 213 31% 12%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 188 63% 25%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 213 27% 88%;
+    --input: 213 27% 88%;
+    --ring: 208 79% 28%;
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #0f4c81;
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eef4fa;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#0f4c81, #185b69);
+    border-radius: 999px;
+    border: 2px solid #eef4fa;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Syne", system-ui, sans-serif;
+  }
+  /* чистый шрифт для крупных цифр-метрик (Syne-цифры выбивались) */
+  .font-num {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: -0.01em;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grad-text {
+    background-image: linear-gradient(120deg, #0f4c81, #185b69);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(15, 76, 129, 0.1);
+  }
+  .glass-dark {
+    background: rgba(13, 17, 23, 0.35);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 30px 80px -40px rgba(15, 76, 129, 0.45);
+  }
+  .shadow-glow {
+    box-shadow: 0 0 0 1px rgba(15, 76, 129, 0.06),
+      0 20px 60px -30px rgba(15, 76, 129, 0.5);
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(rgba(15, 76, 129, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 76, 129, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent);
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
