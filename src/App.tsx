@@ -146,6 +146,7 @@ const OBJECTS: ProjectObj[] = [
     type: "Закрытый премиум-квартал",
     loc: "Симферополь",
     img: "assets/olympia.jpg",
+    popupImg: "assets/olympia-popup.jpg",
     url: "https://olympiakvartal.ru/",
     tags: ["Закрытый квартал", "Для семьи", "Приватность", "Подземный тёплый паркинг", "Уход за автомобилем", "Бизнес-центр"],
     price: "по запросу",
@@ -858,80 +859,209 @@ function AboutAdvantages() {
 /* ============================================================
    METRICS + INTERACTIVE CHART
    ============================================================ */
-const YEARS = [2019, 2020, 2021, 2022, 2023, 2024, 2025];
-const SERIES = {
-  price: {
-    label: "Цена за м²",
-    data: [95000, 112000, 138000, 165000, 198000, 232000, 255000],
-    fmt: (v: number) => ru(v) + " ₽",
+interface MarketPoint {
+  label: string;
+  value: number;
+  display: string;
+  note: string;
+  growth: string;
+  forecast?: boolean;
+}
+
+interface MarketSeries {
+  points: MarketPoint[];
+  currentIndex: number;
+  stats: { value: string; label: string }[];
+  source: string;
+}
+
+type MarketProjectKey = "skysoul" | "santerra" | "ptica";
+type SkyQueueKey = "first" | "second" | "third";
+
+const MARKET_PROJECT_TABS: { key: MarketProjectKey; label: string }[] = [
+  { key: "skysoul", label: "SKYSOUL" },
+  { key: "santerra", label: "САНТЕРРА" },
+  { key: "ptica", label: "ПТИЦА" },
+];
+
+const MARKET_COPY: Record<MarketProjectKey, { title: string; description: string }> = {
+  skysoul: {
+    title: "SKYSOUL: рост стоимости по очередям",
+    description: "Выберите очередь проекта, чтобы сравнить цену м² на старте, текущую стоимость и прогноз на II квартал 2027 года.",
   },
-  demand: {
-    label: "Сделок в месяц",
-    data: [42, 49, 61, 78, 96, 118, 140],
-    fmt: (v: number) => ru(v),
+  santerra: {
+    title: "САНТЕРРА: +225% к стартовой цене",
+    description: "С 27 июня 2025 года цена м² выросла с 310 000 до 1 006 700 ₽ менее чем за 11 месяцев.",
+  },
+  ptica: {
+    title: "ПТИЦА: рост цены и прогноз до 2028",
+    description: "Стоимость м² выросла с 205 000 до 730 000 ₽. Прогнозируемая стоимость к сдаче в 2028 году — 1 100 000 ₽/м².",
   },
 };
-type SeriesKey = keyof typeof SERIES;
 
-function InteractiveChart() {
-  const [key, setKey] = useState<SeriesKey>("price");
-  const [active, setActive] = useState(YEARS.length - 1);
+const SKYSOUL_QUEUES: Record<SkyQueueKey, MarketSeries> = {
+  first: {
+    points: [
+      { label: "II кв. 2022", value: 180000, display: "180 000 ₽/м²", note: "Старт продаж", growth: "Старт" },
+      { label: "июнь 2026", value: 604696, display: "604 696 ₽/м²", note: "Текущая цена", growth: "+236%" },
+      { label: "II кв. 2027", value: 670000, display: "660–680 тыс. ₽/м²", note: "Прогнозный диапазон", growth: "+267–278%", forecast: true },
+    ],
+    currentIndex: 1,
+    stats: [
+      { value: "+236%", label: "рост за 4 года" },
+      { value: "90%", label: "распродано · 600 из 668" },
+      { value: "20,2 млн ₽", label: "минимальная цена объекта" },
+    ],
+    source: "1 очередь · данные обновлены в июне 2026 года",
+  },
+  second: {
+    points: [
+      { label: "II кв. 2023", value: 223000, display: "223 000 ₽/м²", note: "Старт продаж", growth: "Старт" },
+      { label: "июнь 2026", value: 472251, display: "472 251 ₽/м²", note: "Текущая цена", growth: "+136%" },
+      { label: "II кв. 2027", value: 535000, display: "520–550 тыс. ₽/м²", note: "Прогнозный диапазон", growth: "+133–147%", forecast: true },
+    ],
+    currentIndex: 1,
+    stats: [
+      { value: "+136%", label: "рост за 3 года" },
+      { value: "76%", label: "распродано · 604 из 794" },
+      { value: "11,4 млн ₽", label: "минимальная цена объекта" },
+    ],
+    source: "2 очередь · данные обновлены в июне 2026 года",
+  },
+  third: {
+    points: [
+      { label: "II кв. 2024", value: 255000, display: "255 000 ₽/м²", note: "Старт продаж", growth: "Старт" },
+      { label: "июнь 2026", value: 427227, display: "427 227 ₽/м²", note: "Текущая цена", growth: "+80%" },
+      { label: "II кв. 2027", value: 490000, display: "470–510 тыс. ₽/м²", note: "Прогнозный диапазон", growth: "+84–100%", forecast: true },
+    ],
+    currentIndex: 1,
+    stats: [
+      { value: "+80%", label: "рост за 2 года" },
+      { value: "62%", label: "распродано · 403 из 654" },
+      { value: "13,3 млн ₽", label: "минимальная цена объекта" },
+    ],
+    source: "3 очередь · данные обновлены в июне 2026 года",
+  },
+};
+
+const MARKET_SERIES: Record<Exclude<MarketProjectKey, "skysoul">, MarketSeries> = {
+  santerra: {
+    points: [
+      { label: "27.06.2025", value: 310000, display: "310 000 ₽/м²", note: "Старт продаж", growth: "Старт" },
+      { label: "сейчас", value: 1006700, display: "1 006 700 ₽/м²", note: "Текущая цена", growth: "+225%" },
+    ],
+    currentIndex: 1,
+    stats: [
+      { value: "+225%", label: "рост к стартовой цене" },
+      { value: "172", label: "лота продано" },
+      { value: "65%", label: "открытого объёма за первые 6 часов" },
+    ],
+    source: "Старт продаж · 27 июня 2025 года",
+  },
+  ptica: {
+    points: [
+      { label: "старт продаж", value: 205000, display: "205 000 ₽/м²", note: "Цена на старте", growth: "Старт" },
+      { label: "сейчас", value: 730000, display: "730 000 ₽/м²", note: "Текущая цена", growth: "+256%" },
+      { label: "2028", value: 1100000, display: "1 100 000 ₽/м²", note: "Прогноз к сдаче", growth: "+437%", forecast: true },
+    ],
+    currentIndex: 1,
+    stats: [
+      { value: "+256%", label: "рост стоимости с запуска" },
+      { value: "32", label: "апартамента в среднем в месяц" },
+      { value: "+437%", label: "прогнозируемый рост к сдаче" },
+    ],
+    source: "Средние продажи рассчитаны за 26 месяцев с момента старта",
+  },
+};
+
+function InteractiveChart({ project }: { project: MarketProjectKey }) {
+  const [queue, setQueue] = useState<SkyQueueKey>("first");
+  const series = project === "skysoul" ? SKYSOUL_QUEUES[queue] : MARKET_SERIES[project];
+  const [active, setActive] = useState(series.currentIndex);
   const wrapRef = useRef<HTMLDivElement>(null);
   const inView = useInView(wrapRef, { once: true, margin: "-60px" });
 
-  const W = 720, H = 300, padL = 16, padR = 16, padT = 24, padB = 36;
-  const series = SERIES[key];
-  const dmin = Math.min(...series.data);
-  const dmax = Math.max(...series.data);
-  const min = dmin - (dmax - dmin) * 0.18;
-  const max = dmax + (dmax - dmin) * 0.12;
-  const X = (i: number) => padL + (i * (W - padL - padR)) / (YEARS.length - 1);
+  useEffect(() => {
+    setActive(series.currentIndex);
+  }, [project, queue, series.currentIndex]);
+
+  const W = 720, H = 300, padL = 54, padR = 54, padT = 24, padB = 36;
+  const values = series.points.map((point) => point.value);
+  const dmin = Math.min(...values);
+  const dmax = Math.max(...values);
+  const span = Math.max(dmax - dmin, dmax * 0.1, 1);
+  const min = dmin - span * 0.18;
+  const max = dmax + span * 0.12;
+  const X = (i: number) => padL + (i * (W - padL - padR)) / (series.points.length - 1);
   const Y = (v: number) => H - padB - ((v - min) / (max - min)) * (H - padT - padB);
-  const lineD = series.data.map((v, i) => `${i ? "L" : "M"}${X(i)},${Y(v)}`).join(" ");
-  const areaD = `${lineD} L${X(YEARS.length - 1)},${H - padB} L${X(0)},${H - padB} Z`;
+  const forecastIndex = series.points.findIndex((point) => point.forecast);
+  const historyEnd = forecastIndex > 0 ? forecastIndex - 1 : series.points.length - 1;
+  const pathBetween = (start: number, end: number) =>
+    series.points.slice(start, end + 1).map((point, offset) => `${offset ? "L" : "M"}${X(start + offset)},${Y(point.value)}`).join(" ");
+  const historyLineD = pathBetween(0, historyEnd);
+  const forecastLineD = forecastIndex > 0 ? pathBetween(forecastIndex - 1, series.points.length - 1) : "";
+  const areaD = `${historyLineD} L${X(historyEnd)},${H - padB} L${X(0)},${H - padB} Z`;
 
   const pick = (clientX: number, el: SVGRectElement) => {
     const rect = el.getBoundingClientRect();
     const px = ((clientX - rect.left) / rect.width) * W;
     let nearest = 0, dm = Infinity;
-    for (let i = 0; i < YEARS.length; i++) {
+    for (let i = 0; i < series.points.length; i++) {
       const d = Math.abs(X(i) - px);
       if (d < dm) { dm = d; nearest = i; }
     }
     setActive(nearest);
   };
 
-  const growth = Math.round(((series.data[active] - series.data[0]) / series.data[0]) * 100);
+  const selected = series.points[active];
 
   return (
     <div ref={wrapRef} className="relative">
-      {/* big live readout */}
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-            {series.label} · {YEARS[active]}
-          </div>
-          <div className="mt-1 font-num text-[clamp(34px,5vw,56px)] font-extrabold leading-none text-brand-blue tabular-nums">
-            {series.fmt(series.data[active])}
-          </div>
-          <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-brand-teal/10 px-2.5 py-1 text-[12px] font-bold text-brand-teal">
-            ▲ +{growth}% <span className="font-medium text-muted-foreground">с 2019</span>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          {(Object.keys(SERIES) as SeriesKey[]).map((k) => (
+      {project === "skysoul" && (
+        <div className="mb-5 flex flex-wrap gap-2">
+          {([
+            ["first", "1 очередь"],
+            ["second", "2 очередь"],
+            ["third", "3 очередь"],
+          ] as [SkyQueueKey, string][]).map(([key, label]) => (
             <button
-              key={k}
-              onClick={() => setKey(k)}
+              key={key}
+              onClick={() => setQueue(key)}
               className={cn(
-                "rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all",
-                key === k ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/25" : "bg-brand-blue/8 text-brand-blue hover:bg-brand-blue/15"
+                "rounded-full border px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors",
+                queue === key
+                  ? "border-brand-blue bg-brand-blue text-white"
+                  : "border-brand-blue/15 bg-brand-blue/5 text-brand-blue hover:bg-brand-blue/10"
               )}
             >
-              {SERIES[k].label}
+              {label}
             </button>
           ))}
         </div>
+      )}
+
+      {/* big live readout */}
+      <div className="mb-4">
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+            {selected.note} · {selected.label}
+          </div>
+          <div className="mt-1 font-num text-[clamp(34px,5vw,56px)] font-extrabold leading-none text-brand-blue tabular-nums">
+            {selected.display}
+          </div>
+          <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-brand-teal/10 px-2.5 py-1 text-[12px] font-bold text-brand-teal">
+            {selected.forecast ? "Прогноз" : "Динамика"} · {selected.growth}
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-3 grid gap-2 sm:grid-cols-3">
+        {series.stats.map((stat) => (
+          <div key={stat.label} className="rounded-xl border border-brand-blue/10 bg-sky-50/75 px-3.5 py-3">
+            <div className="font-num text-lg font-extrabold leading-none text-brand-blue">{stat.value}</div>
+            <div className="mt-1.5 text-[9px] font-bold uppercase leading-snug tracking-[0.08em] text-muted-foreground">{stat.label}</div>
+          </div>
+        ))}
       </div>
 
       <div className="relative touch-none">
@@ -947,20 +1077,23 @@ function InteractiveChart() {
             </linearGradient>
           </defs>
 
-          <motion.path key={`area-${key}`} d={areaD} fill="url(#carea)" initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 1, delay: 0.3 }} />
-          <motion.path key={`line-${key}`} d={lineD} fill="none" stroke="url(#cline)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}} transition={{ duration: 1.5, ease: EASE }} />
+          <motion.path key={`area-${project}-${queue}`} d={areaD} fill="url(#carea)" initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 1, delay: 0.2 }} />
+          <motion.path key={`line-${project}-${queue}`} d={historyLineD} fill="none" stroke="url(#cline)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
+          {forecastLineD && (
+            <motion.path key={`forecast-${project}-${queue}`} d={forecastLineD} fill="none" stroke="#185B69" strokeWidth="3.5" strokeDasharray="10 9" strokeLinecap="round" initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}} transition={{ duration: 0.8, delay: 0.45, ease: EASE }} />
+          )}
 
           {/* active guideline */}
           <line x1={X(active)} y1={padT - 8} x2={X(active)} y2={H - padB} stroke="rgba(15,76,129,0.3)" strokeDasharray="4 4" />
 
           {/* points */}
-          {series.data.map((v, i) => (
-            <circle key={i} cx={X(i)} cy={Y(v)} r={active === i ? 8 : 4.5} fill={active === i ? "#0F4C81" : "#fff"} stroke="#0F4C81" strokeWidth="3" style={{ transition: "r .15s, fill .15s" }} />
+          {series.points.map((point, i) => (
+            <circle key={point.label} cx={X(i)} cy={Y(point.value)} r={active === i ? 8 : 4.5} fill={active === i ? "#0F4C81" : "#fff"} stroke="#0F4C81" strokeWidth="3" strokeDasharray={point.forecast ? "3 2" : undefined} style={{ transition: "r .15s, fill .15s" }} />
           ))}
 
-          {/* year labels */}
-          {YEARS.map((yr, i) => (
-            <text key={yr} x={X(i)} y={H - padB + 24} textAnchor="middle" className={cn(active === i ? "fill-brand-blue" : "fill-[#8a96a6]")} style={{ fontSize: 12, fontWeight: active === i ? 800 : 500 }}>{yr}</text>
+          {/* period labels */}
+          {series.points.map((point, i) => (
+            <text key={point.label} x={X(i)} y={H - padB + 24} textAnchor="middle" className={cn(active === i ? "fill-brand-blue" : "fill-[#8a96a6]")} style={{ fontSize: 12, fontWeight: active === i ? 800 : 500 }}>{point.label}</text>
           ))}
 
           <rect
@@ -973,28 +1106,49 @@ function InteractiveChart() {
         </svg>
       </div>
       <p className="mt-3 text-center text-[11px] font-medium text-muted-foreground">
-        Ведите по графику или тяните — данные обновляются. Переключайте показатель кнопками.
+        Ведите по графику или тяните, чтобы посмотреть значения. {series.source}.
       </p>
     </div>
   );
 }
 
 function Metrics() {
+  const [project, setProject] = useState<MarketProjectKey>("skysoul");
+  const copy = MARKET_COPY[project];
+
   return (
     <section className="bg-gradient-to-b from-white to-sky-50/50 py-24 md:py-28">
       <div className="mx-auto max-w-[1360px] px-6 md:px-10">
+        <div className="mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Выберите проект</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {MARKET_PROJECT_TABS.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setProject(tab.key)}
+                className={cn(
+                  "rounded-full border px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-all",
+                  project === tab.key
+                    ? "border-brand-blue bg-brand-blue text-white shadow-lg shadow-brand-blue/20"
+                    : "border-brand-blue/15 bg-white text-brand-blue hover:bg-sky-50"
+                )}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="grid items-center gap-10 rounded-3xl border border-brand-blue/10 bg-white p-7 shadow-glow md:grid-cols-[0.85fr_1.15fr] md:p-12">
           <div>
             <Eyebrow>Динамика рынка</Eyebrow>
             <h3 className="mt-5 font-display text-[clamp(26px,3vw,42px)] font-extrabold leading-tight tracking-tight text-foreground">
-              Цена м² выросла в <span className="grad-text">2,7 раза</span> с 2019 года
+              {copy.title}
             </h3>
             <p className="mt-4 max-w-md text-sm font-medium text-muted-foreground">
-              Курортная недвижимость Крыма стабильно дорожает. Инвестируя сегодня, вы
-              фиксируете цену завтрашнего дня. Исследуйте динамику — наведите на график.
+              {copy.description}
             </p>
           </div>
-          <InteractiveChart />
+          <InteractiveChart project={project} />
         </div>
       </div>
     </section>
@@ -1337,15 +1491,15 @@ function ObjectModal({ obj, onClose, onRequest }: { obj: ProjectObj | null; onCl
   return (
     <AnimatePresence>
       {obj && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-[300] flex items-center justify-center bg-brand-ink/50 p-4 backdrop-blur-md">
-          <motion.div initial={{ opacity: 0, y: 40, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 40, scale: 0.97 }} transition={{ duration: 0.4, ease: EASE }} onClick={(e) => e.stopPropagation()} className="relative grid max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl md:grid-cols-2">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-[300] flex items-center justify-center bg-brand-ink/50 p-4 backdrop-blur-md md:p-8">
+          <motion.div initial={{ opacity: 0, y: 40, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 40, scale: 0.97 }} transition={{ duration: 0.4, ease: EASE }} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={`${obj.name} — информация о проекте`} tabIndex={0} className="relative grid h-[calc(100dvh-2rem)] max-h-[760px] w-full max-w-4xl grid-rows-[14rem_minmax(0,1fr)] overflow-hidden rounded-3xl bg-white shadow-2xl outline-none md:h-[calc(100dvh-4rem)] md:grid-cols-2 md:grid-rows-1">
             <button onClick={onClose} className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-brand-ink shadow-md transition-colors hover:bg-brand-blue hover:text-white" aria-label="Закрыть"><X className="h-5 w-5" /></button>
-            <div className="relative h-56 md:h-auto">
+            <div className="relative h-56 md:h-full">
               <img src={obj.popupImg ?? obj.img} alt={obj.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/50 to-transparent md:bg-gradient-to-r" />
               <div className="absolute bottom-4 left-5 flex items-center gap-1.5 text-[12px] uppercase tracking-wider text-white"><MapPin className="h-4 w-4" />{obj.loc}</div>
             </div>
-            <div className="flex flex-col overflow-y-auto p-7 md:p-9">
+            <div role="region" aria-label="Содержимое проекта" tabIndex={0} className="flex min-h-0 flex-col overflow-y-auto overscroll-contain p-7 outline-none md:p-9">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-teal">{obj.type}</p>
               <h3 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight text-foreground">{obj.name}</h3>
               <p className="mt-4 text-sm font-medium leading-relaxed text-foreground/70">{obj.desc}</p>
