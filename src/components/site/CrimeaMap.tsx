@@ -49,7 +49,7 @@ export function CrimeaMap({ objects, onSelect }: CrimeaMapProps) {
 
       {/* aspect-box: картинка и точки в одной системе координат — карта НЕ обрезается */}
       <div className="relative w-full" style={{ aspectRatio: "1672 / 941" }}>
-        <img src="assets/generated/crimea-map.png" alt="Карта Крыма" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="assets/generated/crimea-map.webp" alt="Карта Крыма" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,76,129,0.05)_1px,transparent_1px),linear-gradient(rgba(15,76,129,0.05)_1px,transparent_1px)] bg-[size:72px_72px]" />
         {/* белый scrim под заголовок — только на десктопе */}
         <div className="absolute inset-0 hidden bg-gradient-to-r from-white/92 via-white/25 to-transparent md:block" />

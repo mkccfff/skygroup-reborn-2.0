@@ -60,6 +60,8 @@ interface ProjectObj {
   type: string;
   loc: string;
   img: string;
+  popupImg?: string;
+  url: string;
   tags: string[];
   price: string;
   desc: string;
@@ -72,12 +74,13 @@ interface ProjectObj {
 const OBJECTS: ProjectObj[] = [
   {
     name: "SKYSOUL",
-    type: "Премиальный курортный комплекс",
+    type: "Курортный комплекс бизнес-класса",
     loc: "Коктебель",
     img: "assets/skysoul.jpg",
-    tags: ["Отель 5★", "Резиденции", "Круглый год"],
+    url: "https://skysoul.ru/",
+    tags: ["Первая береговая линия", "Панорамные виды 360°", "СПА-комплекс", "Ресторан авторской кухни", "Инфраструктура 365"],
     price: "от 427 000 ₽/м²",
-    desc: "Премиальный курортный комплекс в одном из самых живописных мест Крыма — в Коктебеле. Проект объединяет современный отель, резиденции и развитую курортную инфраструктуру для комфортной жизни и отдыха круглый год.",
+    desc: "Курортный комплекс бизнес-класса в одном из самых живописных мест Крыма — в Коктебеле. Проект объединяет современный отель, резиденции и развитую курортную инфраструктуру для комфортной жизни и отдыха круглый год.",
     stats: [
       { v: "14,5 га", l: "территория проекта" },
       { v: "85 000+ м²", l: "площадь застройки" },
@@ -90,16 +93,17 @@ const OBJECTS: ProjectObj[] = [
     type: "Санаторно-курортный комплекс",
     loc: "Саки · первая линия",
     img: "assets/ptica.jpg",
-    tags: ["Первая линия", "Санаторий", "СПА 1 960 м²"],
+    url: "https://xn----7sbxkublblhh6a.xn--p1ai/",
+    tags: ["90% видовых номеров", "Панорамный ресторан", "Собственная парковка"],
     price: "по запросу",
     desc: "Премиальный курортный комплекс на первой береговой линии в одном из самых живописных мест Крыма. Гармония природы, архитектуры и сервиса высочайшего уровня. Собственный санаторный корпус — пространство восстановления сил и здоровья в гармонии с природой.",
     stats: [
-      { v: "10 га", l: "территория проекта" },
+      { v: "1-я линия", l: "первая береговая" },
+      { v: "Санаторий", l: "XXI века, собственный" },
+      { v: "365", l: "инфраструктура круглый год" },
       { v: "1 686", l: "единиц номерного фонда" },
-      { v: "30 000 м²", l: "благоустроенный пляж" },
       { v: "1 960 м²", l: "СПА-центр" },
-      { v: "700 м²", l: "бассейн с морской водой" },
-      { v: "1 200 м", l: "артезианская скважина" },
+      { v: "1 200 м", l: "собственная артезианская скважина" },
     ],
   },
   {
@@ -107,16 +111,18 @@ const OBJECTS: ProjectObj[] = [
     type: "Комплекс элит-класса",
     loc: "с. Весёлое · Судак",
     img: "assets/santerra.jpg",
+    popupImg: "assets/santerra-villa.jpg",
+    url: "https://sunterra.com.ru/",
     tags: ["Элит-класс", "Скай-виллы", "Таунхаусы"],
     price: "по запросу",
     desc: "Туристско-рекреационный комплекс элит-класса в с. Весёлое, г. Судак. Чистый морской воздух, реликтовая природа и продуманная архитектура образуют гармоничное пространство для отдыха, восстановления сил и вдохновения.",
     stats: [
-      { v: "7 га", l: "площадь территории" },
-      { v: "761", l: "единиц номерного фонда" },
-      { v: "3", l: "скай-виллы" },
-      { v: "36", l: "таунхаусов с личным бассейном" },
-      { v: "2", l: "ресторана" },
-      { v: "2", l: "СПА-комплекса" },
+      { v: "43", l: "бассейна на территории" },
+      { v: "200 м²", l: "инфинити-бассейн" },
+      { v: "90%", l: "видовых номеров" },
+      { v: "2 га", l: "собственный пляж" },
+      { v: "1 800 м²", l: "два СПА-комплекса" },
+      { v: "2 715 м²", l: "панорамный ресторан" },
     ],
   },
   {
@@ -124,7 +130,8 @@ const OBJECTS: ProjectObj[] = [
     type: "Семейный курортный кластер",
     loc: "Саки · первая линия",
     img: "assets/meddirt.jpg",
-    tags: ["Для семьи", "Первая линия", "Комфорт-класс"],
+    url: "https://meddirt.ru/",
+    tags: ["Для семьи", "Первая линия", "Комфорт-класс", "Аквапарк", "ТРЦ и парк аттракционов", "СПА-комплекс"],
     price: "по запросу",
     desc: "Семейный курортный кластер комфорт-класса на первой береговой линии. Всё для отдыха, оздоровления и развлечения семьи — в одном месте и круглый год.",
     stats: [
@@ -139,12 +146,15 @@ const OBJECTS: ProjectObj[] = [
     type: "Закрытый премиум-квартал",
     loc: "Симферополь",
     img: "assets/olympia.jpg",
-    tags: ["Закрытый квартал", "Для семьи", "Приватность"],
+    url: "https://olympiakvartal.ru/",
+    tags: ["Закрытый квартал", "Для семьи", "Приватность", "Подземный тёплый паркинг", "Уход за автомобилем", "Бизнес-центр"],
     price: "по запросу",
     desc: "Олимпия — это закрытый премиум-квартал для жизни всей семьёй. Продуманная инфраструктура, приватная территория и безупречный сервис создают пространство, где каждая деталь работает на ваш комфорт, безопасность и благополучие.",
     stats: [
       { v: "950", l: "квартирный фонд" },
       { v: "2", l: "бассейна на территории" },
+      { v: "ФОК", l: "собственный физкультурно-оздоровительный комплекс" },
+      { v: "Часовня", l: "на территории квартала" },
       { v: "СПА", l: "комплекс для резидентов" },
       { v: "Приватный", l: "внутренний двор" },
     ],
@@ -161,20 +171,20 @@ const NAV = [
 
 const ADVANTAGES = [
   {
+    t: "Собственный банк земли",
+    d: "295+ гектаров земельного банка в ключевых локациях Крыма — фундамент масштабных проектов на годы вперёд.",
+  },
+  {
     t: "Собственная генподрядная организация",
     d: "«Интеграл» — от земли и проектирования до строительства и эксплуатации в одних руках. Контроль сроков, материалов и качества внутри группы.",
   },
   {
     t: "Собственный отельный оператор",
-    d: "SKYSOUL HOTEL GROUP — гостеприимство уровня пять звёзд и доходность для собственников недвижимости круглый год.",
+    d: "SKYSOUL HOTEL GROUP — гостеприимство премиального уровня и доходность для собственников недвижимости круглый год.",
   },
   {
     t: "Собственная управляющая компания",
     d: "УК «СКАЙСОУЛ» — эксплуатация, сервис и единые стандарты качества после ввода объекта в работу.",
-  },
-  {
-    t: "Собственные санатории и бальнеоцентры",
-    d: "Медицина и оздоровление на базе уникальных природных ресурсов Крыма — здоровье как часть курортной среды.",
   },
 ];
 
@@ -189,27 +199,70 @@ const TEAM = [
   { name: "Ширак Багдасарян", role: "Директор по безопасности", img: "assets/team/bagdasaryan.jpg" },
 ];
 
-const NEWS = [
+interface NewsItem {
+  tag: string;
+  date: string;
+  title: string;
+  excerpt: string;
+  img: string;
+  body: string[];
+}
+
+const NEWS: NewsItem[] = [
   {
-    tag: "Строительство",
-    date: "12 мая 2026",
-    title: "Сантерра: завершён монолит второй башни",
-    excerpt: "Флагманский проект идёт с опережением графика — приступаем к остеклению и фасадным работам.",
-    img: "assets/santerra.jpg",
+    tag: "ПМЭФ-2026",
+    date: "Июнь 2026",
+    title: "На ПМЭФ-2026 подписан меморандум о развитии авиационного кластера",
+    excerpt: "Совет министров Республики Крым и АНО «Просторы Клементьева» договорились о создании на горе Клементьева Центра развития малой авиации и воздушных видов спорта.",
+    img: "assets/news/news-1.jpg",
+    body: [
+      "Одним из ключевых событий второго дня ПМЭФ-2026 для СКАЙГРУПП ДЕВЕЛОПМЕНТ стало подписание меморандума о реализации на территории Республики Крым инвестиционного проекта между Советом министров Республики Крым и АНО «Центр развития малой авиации и воздушных видов спорта „Просторы Клементьева“».",
+      "Проект предусматривает создание на легендарной горе Клементьева современного Центра развития малой авиации и воздушных видов спорта — многофункционального комплекса, объединяющего авиационную инфраструктуру, образовательную и научно-исследовательскую деятельность, спортивные объекты и туристические возможности региона.",
+      "В его состав войдут аэродром и вертодром с сопутствующей инфраструктурой, зоны для парапланерного и парашютного спорта, объекты природно-познавательного туризма, научно-исследовательский комплекс, кампус и туристско-рекреационная инфраструктура.",
+      "Свои подписи под документом поставили заместитель Председателя Совета министров Республики Крым — министр финансов Республики Крым Ирина Кивико и генеральный директор АНО «Просторы Клементьева», вице-президент СКАЙГРУПП ДЕВЕЛОПМЕНТ Алексей Шацких.",
+      "Гора Клементьева занимает особое место в истории отечественной авиации. Именно здесь зарождались традиции советского планеризма, проходили первые всесоюзные соревнования и подготовка будущих авиаконструкторов, лётчиков и исследователей неба.",
+      "Проект станет площадкой роста для восточного Крыма, способствуя развитию туристической отрасли, созданию новых рабочих мест и укреплению статуса региона как одного из ключевых центров авиационного и активного туризма России.",
+    ],
   },
   {
-    tag: "Награды",
-    date: "28 апреля 2026",
-    title: "SKYSOUL — «Курортный проект года»",
-    excerpt: "Проект отмечен отраслевой премией за вклад в развитие курортной инфраструктуры Крыма.",
-    img: "assets/skysoul.jpg",
+    tag: "ПМЭФ-2026",
+    date: "Июнь 2026",
+    title: "СКАЙГРУПП ДЕВЕЛОПМЕНТ подписала на ПМЭФ меморандумы на сумму свыше 143 млрд",
+    excerpt: "По итогам форума компания подписала стратегическое соглашение со Сбербанком и три меморандума с Советом министров Республики Крым, сформировав инвестиционный портфель свыше 143 млрд рублей.",
+    img: "assets/news/news-2.jpg",
+    body: [
+      "Для СКАЙГРУПП ДЕВЕЛОПМЕНТ Петербургский международный экономический форум — 2026 стал площадкой запуска инициатив, способных изменить экономический, туристический и инфраструктурный ландшафт Республики Крым на десятилетия вперёд.",
+      "По итогам форума компания подписала стратегическое соглашение со Сбербанком и три меморандума о сотрудничестве с Советом министров Республики Крым, сформировав инвестиционный портфель свыше 143 млрд рублей.",
+      "В число ключевых инициатив вошли проекты по созданию новых гостиничных, санаторно-курортных и туристических комплексов по всему полуострову — от западного до восточного побережья Крыма — с общим номерным фондом, превышающим 15 тысяч.",
+      "Особое место среди подписанных меморандумов занимает туристско-развлекательный комплекс «Крым Наш Парк» с объёмом инвестиций более 120 млрд рублей — одна из крупнейших туристических инициатив современной России, способная стать новой точкой притяжения федерального масштаба.",
+      "Ещё одним стратегическим направлением станет создание Центра развития малой авиации и воздушных видов спорта «Просторы Клементьева» — современного центра авиационного туризма, спорта и профильной инфраструктуры федерального уровня.",
+    ],
   },
   {
-    tag: "Продажи",
-    date: "15 апреля 2026",
-    title: "Старт продаж нового квартала Меддирт",
-    excerpt: "Открыто бронирование квартир в новой очереди семейного кластера у моря на стартовых условиях.",
-    img: "assets/meddirt.jpg",
+    tag: "Проекты",
+    date: "Июнь 2026",
+    title: "«Крым Наш Парк» — новый масштабный проект развития Крыма",
+    excerpt: "СКАЙГРУПП ДЕВЕЛОПМЕНТ и Сбербанк подписали соглашение о финансировании туристско-развлекательного комплекса в Бахчисарайском районе с объёмом инвестиций 120 млрд рублей.",
+    img: "assets/news/news-3.jpg",
+    body: [
+      "В рамках ПМЭФ СКАЙГРУПП ДЕВЕЛОПМЕНТ и Сбербанк подписали соглашение о стратегическом сотрудничестве, предусматривающее финансирование туристско-развлекательного комплекса «Крым Наш Парк».",
+      "Проект будет реализован на территории Бахчисарайского района и станет новой точкой притяжения для жителей и гостей полуострова. 120 млрд рублей — именно такая сумма будет вложена в реализацию проекта, превращая его в крупнейший туристический комплекс России.",
+      "«Крым Наш Парк» объединит культурно-инновационный кластер, тематический парк аттракционов, всесезонный аквапарк с акватермальным комплексом, конгресс-холл, экспоцентр, спортивную инфраструктуру, объекты оздоровления, рекреации и временного проживания.",
+      "Это не просто новый объект на карте полуострова. Это пространство, где будут создаваться воспоминания, рождаться яркие эмоции и открываться новые горизонты семейного отдыха и развлечений.",
+    ],
+  },
+  {
+    tag: "Партнёрство",
+    date: "Июнь 2026",
+    title: "На ПМЭФ подписано соглашение между СКАЙГРУПП ДЕВЕЛОПМЕНТ и Сбером",
+    excerpt: "Десятилетнее сотрудничество предусматривает реализацию совместных инициатив в сфере девелопмента с использованием современных финансовых, цифровых и технологических решений.",
+    img: "assets/news/news-4.jpg",
+    body: [
+      "На XXIX Петербургском международном экономическом форуме Председатель Сибирского банка Сбера Дмитрий Солнцев и вице-президент СКАЙГРУПП ДЕВЕЛОПМЕНТ Алексей Шацких подписали соглашение о сотрудничестве.",
+      "Десятилетнее партнёрство предусматривает реализацию совместных инициатив в сфере девелопмента с использованием современных финансовых, цифровых и технологических решений.",
+      "Одним из ключевых направлений сотрудничества станет финансирование одного из самых масштабных проектов Республики Крым — туристско-развлекательного комплекса «Крым Наш Парк». Общий объём инвестиций в проект составляет 120 млрд рублей, что делает его одним из крупнейших туристических комплексов России.",
+      "«Для нас партнёрство со Сбером — это возможность усилить развитие проектов СКАЙГРУПП ДЕВЕЛОПМЕНТ за счёт современных технологий, сильной экспертизы и новых сервисных решений. Уверены, что совместная работа позволит реализовывать ещё более качественные и масштабные проекты», — отметил Алексей Шацких, вице-президент СКАЙГРУПП ДЕВЕЛОПМЕНТ.",
+    ],
   },
 ];
 
@@ -762,7 +815,7 @@ function AboutAdvantages() {
           className="absolute inset-0 h-full w-full object-cover"
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="assets/hero.jpg"
         >
           <source src="assets/about-building.mp4" type="video/mp4" />
@@ -1055,7 +1108,59 @@ function Team() {
 /* ============================================================
    NEWS
    ============================================================ */
+function NewsCard({ n, onOpen, delay = 0 }: { n: NewsItem; onOpen: () => void; delay?: number }) {
+  return (
+    <Reveal delay={delay} className="h-full">
+      <button onClick={onOpen} className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-brand-blue/10 bg-white text-left transition-all hover:-translate-y-1 hover:shadow-glow">
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img src={n.img} alt={n.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <span className="absolute left-4 top-4 rounded-full bg-brand-blue px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">{n.tag}</span>
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{n.date}</span>
+          <h3 className="mt-3 font-display text-lg font-bold leading-tight tracking-tight text-foreground">{n.title}</h3>
+          <p className="mt-3 text-sm font-medium leading-relaxed text-muted-foreground">{n.excerpt}</p>
+          <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-blue">
+            Читать <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </span>
+        </div>
+      </button>
+    </Reveal>
+  );
+}
+
+function NewsModal({ news, onClose }: { news: NewsItem | null; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    if (news) { document.addEventListener("keydown", onKey); document.body.style.overflow = "hidden"; }
+    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [news, onClose]);
+  return (
+    <AnimatePresence>
+      {news && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-[300] flex items-start justify-center overflow-y-auto bg-brand-ink/55 p-4 backdrop-blur-md md:p-8">
+          <motion.article initial={{ opacity: 0, y: 40, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 40, scale: 0.97 }} transition={{ duration: 0.4, ease: EASE }} onClick={(e) => e.stopPropagation()} className="relative my-auto w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <button onClick={onClose} className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-brand-ink shadow-md transition-colors hover:bg-brand-blue hover:text-white" aria-label="Закрыть"><X className="h-5 w-5" /></button>
+            <div className="relative aspect-[16/9] overflow-hidden">
+              <img src={news.img} alt={news.title} className="h-full w-full object-cover" />
+              <span className="absolute left-5 top-5 rounded-full bg-brand-blue px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">{news.tag}</span>
+            </div>
+            <div className="p-7 md:p-9">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{news.date}</span>
+              <h3 className="mt-3 font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground md:text-[28px]">{news.title}</h3>
+              <div className="mt-5 space-y-4 text-[15px] font-medium leading-relaxed text-foreground/75">
+                {news.body.map((p, i) => <p key={i}>{p}</p>)}
+              </div>
+            </div>
+          </motion.article>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function News() {
+  const [active, setActive] = useState<number | null>(null);
   return (
     <section id="news" className="bg-gradient-to-b from-sky-50/50 to-white py-24 md:py-32">
       <div className="mx-auto max-w-[1360px] px-6 md:px-10">
@@ -1069,32 +1174,18 @@ function News() {
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <a href="https://xn--80agrc2afcv.xn--p1ai/blog" target="_blank" rel="noopener noreferrer" className="group inline-flex h-12 items-center gap-2 rounded-full border border-brand-blue/20 px-6 text-[12px] font-bold uppercase tracking-[0.14em] text-brand-blue transition-colors hover:bg-brand-blue hover:text-white">
+            <a href="#/news" className="group inline-flex h-12 items-center gap-2 rounded-full border border-brand-blue/20 px-6 text-[12px] font-bold uppercase tracking-[0.14em] text-brand-blue transition-colors hover:bg-brand-blue hover:text-white">
               Все новости <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </Reveal>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {NEWS.map((n, i) => (
-            <Reveal key={n.title} delay={i * 0.08}>
-              <a href="https://xn--80agrc2afcv.xn--p1ai/blog" target="_blank" rel="noopener noreferrer" className="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand-blue/10 bg-white transition-all hover:-translate-y-1 hover:shadow-glow">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={n.img} alt={n.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <span className="absolute left-4 top-4 rounded-full bg-brand-blue px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">{n.tag}</span>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{n.date}</span>
-                  <h3 className="mt-3 font-display text-lg font-bold leading-tight tracking-tight text-foreground">{n.title}</h3>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-muted-foreground">{n.excerpt}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-brand-blue">
-                    Читать <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </a>
-            </Reveal>
+          {NEWS.slice(0, 3).map((n, i) => (
+            <NewsCard key={n.title} n={n} delay={i * 0.08} onOpen={() => setActive(i)} />
           ))}
         </div>
       </div>
+      <NewsModal news={active != null ? NEWS[active] : null} onClose={() => setActive(null)} />
     </section>
   );
 }
@@ -1163,7 +1254,7 @@ function CTASection() {
                   <button type="submit" className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-4 text-[12px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-brand-teal">
                     Отправить заявку <Send className="h-4 w-4" />
                   </button>
-                  <p className="text-center text-[11px] text-muted-foreground">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+                  <p className="text-center text-[11px] text-muted-foreground">Нажимая кнопку, вы соглашаетесь с <a href="#/privacy" className="underline underline-offset-2 transition-colors hover:text-brand-blue">политикой конфиденциальности</a>.</p>
                 </motion.form>
               )}
             </AnimatePresence>
@@ -1179,8 +1270,14 @@ function CTASection() {
    ============================================================ */
 function Footer() {
   return (
-    <footer className="bg-brand-ink px-6 pb-10 pt-20 text-white/60 md:px-10">
-      <div className="mx-auto max-w-[1360px]">
+    <footer className="relative overflow-hidden bg-brand-ink px-6 pb-10 pt-20 text-white/60 md:px-10">
+      <img
+        src="assets/brand-mark.svg"
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute -right-4 -top-20 hidden h-[150%] w-auto opacity-[0.06] [filter:brightness(0)_invert(1)] md:block"
+      />
+      <div className="relative mx-auto max-w-[1360px]">
         <div className="grid gap-10 border-b border-white/10 pb-14 md:grid-cols-[1.6fr_1fr_1fr_1.2fr]">
           <div>
             <div className="flex items-baseline gap-1.5 font-display">
@@ -1218,8 +1315,8 @@ function Footer() {
         <div className="flex flex-col items-start justify-between gap-4 pt-7 text-xs text-white/45 md:flex-row md:items-center">
           <span>© {new Date().getFullYear()} Скайгрупп Девелопмент. Все права защищены.</span>
           <div className="flex flex-wrap gap-6">
-            <a href="#" className="hover:text-white">Политика конфиденциальности</a>
-            <a href="#" className="hover:text-white">Правовая информация</a>
+            <a href="#/privacy" className="hover:text-white">Политика конфиденциальности</a>
+            <a href="#/legal" className="hover:text-white">Правовая информация</a>
           </div>
         </div>
       </div>
@@ -1244,7 +1341,7 @@ function ObjectModal({ obj, onClose, onRequest }: { obj: ProjectObj | null; onCl
           <motion.div initial={{ opacity: 0, y: 40, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 40, scale: 0.97 }} transition={{ duration: 0.4, ease: EASE }} onClick={(e) => e.stopPropagation()} className="relative grid max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl md:grid-cols-2">
             <button onClick={onClose} className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-brand-ink shadow-md transition-colors hover:bg-brand-blue hover:text-white" aria-label="Закрыть"><X className="h-5 w-5" /></button>
             <div className="relative h-56 md:h-auto">
-              <img src={obj.img} alt={obj.name} className="h-full w-full object-cover" />
+              <img src={obj.popupImg ?? obj.img} alt={obj.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/50 to-transparent md:bg-gradient-to-r" />
               <div className="absolute bottom-4 left-5 flex items-center gap-1.5 text-[12px] uppercase tracking-wider text-white"><MapPin className="h-4 w-4" />{obj.loc}</div>
             </div>
@@ -1256,9 +1353,9 @@ function ObjectModal({ obj, onClose, onRequest }: { obj: ProjectObj | null; onCl
                 <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-teal">Инфраструктура и преимущества</p>
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                   {obj.stats.map((s) => (
-                    <div key={s.l} className="rounded-xl bg-sky-50 p-3.5">
-                      <div className="font-num text-[15px] font-extrabold leading-none text-brand-blue">{s.v}</div>
-                      <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground">{s.l}</div>
+                    <div key={s.l} className="min-w-0 rounded-xl bg-sky-50 p-3.5">
+                      <div className="font-num text-[15px] font-extrabold leading-tight text-brand-blue [overflow-wrap:anywhere]">{s.v}</div>
+                      <div className="mt-1.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground [overflow-wrap:anywhere]">{s.l}</div>
                     </div>
                   ))}
                 </div>
@@ -1269,7 +1366,7 @@ function ObjectModal({ obj, onClose, onRequest }: { obj: ProjectObj | null; onCl
               <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-7">
                 <div><div className="text-[11px] uppercase tracking-wider text-muted-foreground">Стоимость</div><div className="font-display text-xl text-brand-blue">{obj.price}</div></div>
                 <div className="flex flex-wrap gap-2">
-                  <a href="https://xn--80agrc2afcv.xn--p1ai/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-brand-blue/20 px-5 py-3.5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-blue transition-colors hover:bg-sky-50">Перейти на сайт <ArrowUpRight className="h-4 w-4" /></a>
+                  <a href={obj.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-brand-blue/20 px-5 py-3.5 text-[11px] font-bold uppercase tracking-[0.14em] text-brand-blue transition-colors hover:bg-sky-50">Перейти на сайт <ArrowUpRight className="h-4 w-4" /></a>
                   <button onClick={onRequest} className="inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3.5 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-brand-teal">Оставить заявку <ArrowUpRight className="h-4 w-4" /></button>
                 </div>
               </div>
@@ -1705,12 +1802,37 @@ function OurAwards() {
 
 /* только уникальные рендеры — не повторяются в других секциях
    (проекты: skysoul/santerra/ptica/olympia/meddirt; блок 2: g2; награды: g1; g6 — двойник skysoul, не используем) */
+/* галерея — 5 рендеров на каждый объект (25), чередование для слайдера */
 const GALLERY_IMAGES = [
+  { src: "assets/gallery/g1.jpg", cap: "САНТЕРРА · башни у моря" },
+  { src: "assets/gallery/g6.jpg", cap: "SKYSOUL · Коктебель на закате" },
   { src: "assets/gallery/g5.jpg", cap: "ПТИЦА · первая береговая линия" },
-  { src: "assets/gallery/g3.jpg", cap: "САНТЕРРА · курортная среда" },
-  { src: "assets/gallery/g4.jpg", cap: "САНТЕРРА · приватные бассейны" },
   { src: "assets/gallery/g8.jpg", cap: "МЕДДИРТ · вид с высоты" },
   { src: "assets/gallery/g7.jpg", cap: "ОЛИМПИЯ · городской квартал" },
+
+  { src: "assets/gallery/g3.jpg", cap: "САНТЕРРА · курортная среда" },
+  { src: "assets/gallery/skysoul-1.jpg", cap: "SKYSOUL · вечерние огни комплекса" },
+  { src: "assets/gallery/ptica-1.jpg", cap: "ПТИЦА · закат над морем" },
+  { src: "assets/gallery/g14.jpg", cap: "МЕДДИРТ · вилла на первой линии" },
+  { src: "assets/gallery/g15.jpg", cap: "ОЛИМПИЯ · архитектурный ансамбль" },
+
+  { src: "assets/gallery/g4.jpg", cap: "САНТЕРРА · приватные бассейны" },
+  { src: "assets/gallery/skysoul-2.jpg", cap: "SKYSOUL · авторская архитектура" },
+  { src: "assets/gallery/ptica-2.jpg", cap: "ПТИЦА · вид на комплекс" },
+  { src: "assets/gallery/meddirt-1.jpg", cap: "МЕДДИРТ · зоны отдыха у воды" },
+  { src: "assets/gallery/g16.jpg", cap: "ОЛИМПИЯ · улица внутри квартала" },
+
+  { src: "assets/gallery/g11.jpg", cap: "САНТЕРРА · бассейны между башнями" },
+  { src: "assets/gallery/skysoul-3.jpg", cap: "SKYSOUL · пляж и набережная" },
+  { src: "assets/gallery/ptica-3.jpg", cap: "ПТИЦА · санаторный корпус" },
+  { src: "assets/gallery/meddirt-2.jpg", cap: "МЕДДИРТ · ресторан и лаунж" },
+  { src: "assets/gallery/g17.jpg", cap: "ОЛИМПИЯ · парадный фасад" },
+
+  { src: "assets/gallery/g12.jpg", cap: "САНТЕРРА · панорама с моря" },
+  { src: "assets/gallery/skysoul-4.jpg", cap: "SKYSOUL · резиденции у моря" },
+  { src: "assets/gallery/ptica-4.jpg", cap: "ПТИЦА · курортная архитектура" },
+  { src: "assets/gallery/meddirt-3.jpg", cap: "МЕДДИРТ · аквазона у моря" },
+  { src: "assets/gallery/olympia-1.jpg", cap: "ОЛИМПИЯ · закрытый квартал" },
 ];
 
 const gallerySlide: Variants = {
@@ -1885,10 +2007,10 @@ function DirectorSectionPremium() {
             <Reveal delay={0.2}>
               <div className="mt-12 grid grid-cols-3 gap-5 border-t border-brand-blue/12 pt-10">
                 {[["14", "", "масштабных проектов"], ["397 000", "+ м²", "введено в эксплуатацию"], ["295", "+ га", "земельный банк"]].map(([n, suf, l]) => (
-                  <div key={l}>
+                  <div key={l} className="min-w-0">
                     <p className="flex items-baseline whitespace-nowrap font-num font-extrabold leading-none text-brand-blue">
-                      <span className="text-[clamp(24px,3vw,46px)] tabular-nums">{n}</span>
-                      <span className="text-[clamp(12px,1.2vw,18px)] text-brand-teal">{suf}</span>
+                      <span className="text-[clamp(17px,2.3vw,34px)] tabular-nums">{n}</span>
+                      <span className="text-[clamp(10px,1vw,15px)] text-brand-teal">{suf}</span>
                     </p>
                     <p className="mt-2.5 text-[11px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground">{l}</p>
                   </div>
@@ -1903,9 +2025,145 @@ function DirectorSectionPremium() {
 }
 
 /* ============================================================
+   ROUTING + STANDALONE PAGES (hash-based — работает на GitHub Pages)
+   ============================================================ */
+type Route = "home" | "news" | "privacy" | "legal";
+function useRoute(): Route {
+  const read = (): Route => {
+    const h = window.location.hash;
+    if (h.startsWith("#/news")) return "news";
+    if (h.startsWith("#/privacy")) return "privacy";
+    if (h.startsWith("#/legal")) return "legal";
+    return "home";
+  };
+  const [route, setRoute] = useState<Route>(read);
+  useEffect(() => {
+    const on = () => { setRoute(read()); window.scrollTo(0, 0); };
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+  return route;
+}
+
+function PageHeader() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-brand-blue/10 bg-white/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between px-6 md:px-10">
+        <a href="#/" className="flex items-baseline gap-1.5 font-display">
+          <span className="text-[17px] font-extrabold tracking-tight text-foreground">СКАЙГРУПП</span>
+          <span className="text-[17px] font-semibold tracking-tight text-muted-foreground">ДЕВЕЛОПМЕНТ</span>
+        </a>
+        <a href="#/" className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] text-brand-blue transition-colors hover:text-brand-teal">
+          <ArrowRight className="h-4 w-4 rotate-180" /> На главную
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function NewsPage() {
+  const [active, setActive] = useState<number | null>(null);
+  return (
+    <div className="min-h-screen bg-white">
+      <PageHeader />
+      <main className="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
+        <Eyebrow>Медиа</Eyebrow>
+        <h1 className="mt-4 font-display text-[clamp(34px,5vw,68px)] font-extrabold uppercase leading-[0.95] tracking-tight text-foreground">
+          Новости СКАЙГРУПП девелопмент
+        </h1>
+        <p className="mt-5 max-w-2xl text-[15px] font-medium leading-relaxed text-muted-foreground">
+          Главные события, проекты и достижения СКАЙГРУПП ДЕВЕЛОПМЕНТ.
+        </p>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {NEWS.map((n, i) => (
+            <NewsCard key={n.title} n={n} delay={(i % 3) * 0.05} onOpen={() => setActive(i)} />
+          ))}
+        </div>
+      </main>
+      <Footer />
+      <NewsModal news={active != null ? NEWS[active] : null} onClose={() => setActive(null)} />
+    </div>
+  );
+}
+
+const PRIVACY = {
+  eyebrow: "Правовая информация",
+  title: "Политика конфиденциальности",
+  updated: "Действует с 2026 года",
+  sections: [
+    { h: "1. Общие положения", p: [
+      "Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей сайта СКАЙГРУПП ДЕВЕЛОПМЕНТ (далее — Компания). Используя сайт и оставляя свои данные в формах обратной связи, пользователь подтверждает согласие с условиями настоящей Политики.",
+      "Обработка персональных данных осуществляется в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».",
+    ] },
+    { h: "2. Какие данные мы собираем", p: [
+      "Компания обрабатывает данные, которые пользователь предоставляет добровольно: имя, номер телефона, адрес электронной почты, а также сведения об интересующем проекте. Дополнительно могут автоматически собираться технические данные (cookie, IP-адрес, сведения о браузере) в обезличенном виде.",
+    ] },
+    { h: "3. Цели обработки", p: [
+      "Персональные данные обрабатываются для обратной связи с пользователем, консультирования по проектам Компании, обработки заявок и повышения качества сервиса. Компания не использует данные для целей, не совместимых с указанными.",
+    ] },
+    { h: "4. Передача третьим лицам", p: [
+      "Компания не передаёт персональные данные третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации, либо с согласия пользователя.",
+    ] },
+    { h: "5. Хранение и защита", p: [
+      "Компания принимает необходимые организационные и технические меры для защиты персональных данных от неправомерного доступа, изменения, раскрытия или уничтожения. Данные хранятся не дольше, чем этого требуют цели обработки.",
+    ] },
+    { h: "6. Права пользователя", p: [
+      "Пользователь вправе запросить информацию об обработке своих данных, потребовать их уточнения, блокирования или удаления, а также отозвать согласие на обработку, направив обращение по адресу pr@skygk.ru.",
+    ] },
+    { h: "7. Контакты", p: [
+      "По вопросам обработки персональных данных: pr@skygk.ru, +7 (918) 029-39-99, Республика Крым.",
+    ] },
+  ],
+};
+
+const LEGAL = {
+  eyebrow: "Правовая информация",
+  title: "Правовая информация",
+  updated: "Действует с 2026 года",
+  sections: [
+    { h: "Материалы сайта", p: [
+      "Все материалы, размещённые на сайте СКАЙГРУПП ДЕВЕЛОПМЕНТ, носят информационный характер и не являются публичной офертой, определяемой положениями статьи 437 Гражданского кодекса Российской Федерации.",
+    ] },
+    { h: "Изображения и визуализации", p: [
+      "Архитектурные визуализации, рендеры и планировки представлены в ознакомительных целях. Внешний вид, характеристики, площади и иные параметры объектов могут отличаться от итоговой реализации. Точные условия приобретения уточняйте у менеджеров Компании.",
+    ] },
+    { h: "Интеллектуальная собственность", p: [
+      "Названия проектов, товарные знаки, логотипы и фирменный стиль являются объектами интеллектуальной собственности и не могут использоваться без письменного согласия правообладателя. Использование материалов сайта допускается только со ссылкой на источник.",
+    ] },
+    { h: "Контактная информация", p: [
+      "СКАЙГРУПП ДЕВЕЛОПМЕНТ. Республика Крым. Телефон: +7 (918) 029-39-99. E-mail: pr@skygk.ru.",
+    ] },
+  ],
+};
+
+function LegalPage({ kind }: { kind: "privacy" | "legal" }) {
+  const data = kind === "privacy" ? PRIVACY : LEGAL;
+  return (
+    <div className="min-h-screen bg-white">
+      <PageHeader />
+      <main className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-24">
+        <Eyebrow>{data.eyebrow}</Eyebrow>
+        <h1 className="mt-4 font-display text-[clamp(28px,4.2vw,52px)] font-extrabold uppercase leading-[1.02] tracking-tight text-foreground">{data.title}</h1>
+        <p className="mt-4 text-[13px] font-medium uppercase tracking-wider text-muted-foreground">{data.updated}</p>
+        <div className="mt-10 space-y-8">
+          {data.sections.map((s, i) => (
+            <section key={i}>
+              <h2 className="font-display text-lg font-extrabold uppercase tracking-tight text-foreground">{s.h}</h2>
+              {s.p.map((p, j) => <p key={j} className="mt-3 text-[15px] font-medium leading-relaxed text-foreground/75">{p}</p>)}
+            </section>
+          ))}
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/* ============================================================
    APP
    ============================================================ */
 export default function App() {
+  const route = useRoute();
   const [activeName, setActiveName] = useState<string | null>(null);
   const activeObj = OBJECTS.find((o) => o.name === activeName) ?? null;
 
@@ -1920,6 +2178,10 @@ export default function App() {
 
   const goContacts = () => document.querySelector("#contacts")?.scrollIntoView({ behavior: "smooth" });
 
+  if (route === "news") return <NewsPage />;
+  if (route === "privacy") return <LegalPage kind="privacy" />;
+  if (route === "legal") return <LegalPage kind="legal" />;
+
   return (
     <div className="relative bg-background">
       <Navbar onCta={goContacts} />
@@ -1928,12 +2190,12 @@ export default function App() {
         <DeveloperIntroPremium />
         <Projects onOpen={setActiveName} />
         <AboutAdvantages />
-        <OurAwards />
         <Metrics />
         <MapSection onOpen={setActiveName} />
         <GalleryFullscreen />
         <DirectorSectionPremium />
         <Team />
+        <OurAwards />
         <News />
         <CTASection />
         <Footer />
